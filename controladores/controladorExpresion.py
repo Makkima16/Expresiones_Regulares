@@ -62,8 +62,3 @@ class ControladorExpresion:
         return Automata(states, alphabet, transitions, initial_state, accepting_states)
 
 
-# Ejemplo de uso
-regex = input("Ingrese la expresión regular: ")
-automaton = ControladorExpresion.build_automaton_from_regex(regex)
-print("Estados del autómata:", automaton.states)
-automaton.draw()
