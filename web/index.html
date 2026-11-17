@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autómatas · Expresiones regulares</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%237c8cff' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2335e0c1'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="top">
+    <div class="marca">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+        <circle cx="16" cy="16" r="13" fill="none" stroke="url(#g)" stroke-width="2.6"/>
+        <circle cx="16" cy="16" r="6.5" fill="url(#g)"/>
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c8cff"/><stop offset="1" stop-color="#35e0c1"/></linearGradient></defs>
+      </svg>
+      <div>
+        <h1>Autómatas</h1>
+        <p>De expresión regular a AFN, AFD y AFD mínimo</p>
+      </div>
+    </div>
+    <button id="tema" class="icono" title="Cambiar tema" aria-label="Cambiar tema">☾</button>
+  </header>
+
+  <main>
+    <section class="tarjeta entrada">
+      <label for="regex">Expresión regular</label>
+      <div class="campo">
+        <span class="barra">/</span>
+        <input id="regex" type="text" spellcheck="false" autocomplete="off" autofocus
+               placeholder="(a|b)*abb" value="(a|b)*abb">
+        <span class="barra">/</span>
+      </div>
+      <div class="fila-teclas">
+        <div class="teclas" aria-label="Insertar operador">
+          <button data-ins="|" title="Unión">|</button>
+          <button data-ins="*" title="Cerradura de Kleene (0 o más)">*</button>
+          <button data-ins="+" title="Una o más">+</button>
+          <button data-ins="?" title="Opcional">?</button>
+          <button data-ins="()" title="Paréntesis">( )</button>
+          <button data-ins="ε" title="Cadena vacía">ε</button>
+        </div>
+        <div class="ejemplos" id="ejemplos-regex"></div>
+      </div>
+      <div id="error" class="error" role="alert" hidden></div>
+    </section>
+
+    <section class="tarjeta lienzo">
+      <div class="cabecera-lienzo">
+        <div class="pestanas" role="tablist">
+          <button role="tab" data-vista="afn" class="activa">AFN</button>
+          <button role="tab" data-vista="afd">AFD</button>
+          <button role="tab" data-vista="minimo">AFD mínimo</button>
+          <button role="tab" data-vista="arbol">Árbol sintáctico</button>
+        </div>
+        <div id="resumen" class="resumen"></div>
+      </div>
+      <div class="vista" id="vista">
+        <svg id="svg" aria-label="Diagrama del autómata">
+          <defs>
+            <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="punta"/>
+            </marker>
+          </defs>
+          <g id="mundo"></g>
+        </svg>
+        <div class="zoom">
+          <button id="z-mas" title="Acercar" aria-label="Acercar">+</button>
+          <button id="z-menos" title="Alejar" aria-label="Alejar">−</button>
+          <button id="z-ajustar" title="Ajustar a la ventana" aria-label="Ajustar">⤢</button>
+        </div>
+        <div id="vacio" class="vacio" hidden>Escribe una expresión regular para ver su autómata.</div>
+      </div>
+      <div class="leyenda" id="leyenda"></div>
+    </section>
+
+    <aside class="tarjeta panel">
+      <h2>Probar una cadena</h2>
+      <div class="campo chico">
+        <input id="cadena" type="text" spellcheck="false" autocomplete="off" placeholder="Escribe una cadena (vacío = ε)">
+      </div>
+      <div class="ejemplos" id="ejemplos-cadena"></div>
+
+      <div id="veredicto" class="veredicto neutro">Sin probar</div>
+      <div id="letras" class="letras" aria-live="polite"></div>
+
+      <div class="controles">
+        <button id="p-inicio" title="Al inicio" aria-label="Al inicio">⏮</button>
+        <button id="p-atras" title="Paso anterior" aria-label="Paso anterior">◀</button>
+        <button id="p-play" class="primario" title="Reproducir" aria-label="Reproducir">▶</button>
+        <button id="p-sig" title="Paso siguiente" aria-label="Paso siguiente">▶︎|</button>
+        <button id="p-fin" title="Al final" aria-label="Al final">⏭</button>
+      </div>
+      <p id="explicacion" class="explicacion">Elige o escribe una cadena para seguir su recorrido paso a paso sobre el autómata de la pestaña activa.</p>
+
+      <h2>Datos</h2>
+      <dl class="datos" id="datos"></dl>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

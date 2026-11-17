@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+automata.png
+automata.pdf
+dfa_test_results.json
